@@ -1,2 +1,2 @@
-# Sanke
- Sanke Game
+# Snake
+ Snake Game
