@@ -14,7 +14,7 @@ let snakeBody = [];
 let setIntervalId;
 let score = 0;
 
-// Blocks access to the source code.
+// "Block" access to the source code.
 /*document.addEventListener('contextmenu', function (event) {
     alert(
         'This project is fully available on my GitHub profile. I would be very grateful if you could give it a star to show your support.'
@@ -46,11 +46,12 @@ var sfx = {
 var music = {
     background: new Howl({
         src: [
-            'src/Sounds/pixel01.mp3', 'src/Sounds/pixel02.mp3', 'src/Sounds/pixel03.mp3'
+            'src/Sounds/pixel03.mp3' // songs: "pixel01", "pixel02" and "pixel03"
         ],
         autoplay: false,
         loop: true,
         volume: 0.2,
+        rate: 1.0, // speed
     })
 }
 
@@ -116,6 +117,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
 let highScore = localStorage.getItem("high-score") || 0;
 highScoreElement.innerText = `High Score: ${highScore}`;
+
+// Dynamic themes
+function updateScore(newScore) {
+    score = newScore;
+    const isLightMode = body.classList.contains("light-mode");
+    
+    // change the theme when reaching a certain amount of points
+    if (score === 10 && isLightMode) {
+        body.classList.remove("light-mode");
+    } else if (score === 10 && !isLightMode) {
+        body.classList.add("light-mode");
+    } else if (score === 20 && isLightMode) {
+        body.classList.remove("light-mode");
+    } else if (score == 20 && !isLightMode) {
+        body.classList.add("light-mode");
+    }
+}  
+  
+
+
 
 // Random 1 and 30 as food position
 
@@ -186,9 +207,15 @@ const initGame = () =>{
         localStorage.setItem("high-score", highScore);
         scoreElement.innerText = `Score: ${score}`;
         highScoreElement.innerText = `High Score: ${highScore}`;
-        if ("vibrate" in navigator) {
-            navigator.vibrate(200); // Function test
-        }
+
+        // cell phone vibration
+        /* if ("vibrate" in navigator) {
+            navigator.vibrate(200);
+            console.log("Vibration!!!")
+        } */
+
+        updateScore(score);
+
     }
 
     // Update Snake Head
