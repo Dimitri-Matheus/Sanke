@@ -1,2 +1,2 @@
-# Snake 🐍
+# Snake
 🕹️ Snake Game: 
