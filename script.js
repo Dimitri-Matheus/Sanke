@@ -15,12 +15,12 @@ let setIntervalId;
 let score = 0;
 
 // "Block" access to the source code.
-/*document.addEventListener('contextmenu', function (event) {
+document.addEventListener('contextmenu', function (event) {
     alert(
         'This project is fully available on my GitHub profile. I would be very grateful if you could give it a star to show your support.'
     )
     event.preventDefault();
-}); */
+});
 
 // Sounds
 var sfx = {
@@ -29,7 +29,7 @@ var sfx = {
             'src/Sounds/eat.mp3',
         ],
         loop: false,
-        volume: 0.1,
+        volume: 0.2,
     }),
     hit: new Howl({
         src: [
@@ -50,7 +50,7 @@ var music = {
         ],
         autoplay: false,
         loop: true,
-        volume: 0.2,
+        volume: 0.4,
         rate: 1.0, // speed
     })
 }
@@ -125,8 +125,10 @@ function updateScore(newScore) {
     
     // change the theme when reaching a certain amount of points
     if (score === 10 && isLightMode) {
+        handleGameOver();
         body.classList.remove("light-mode");
     } else if (score === 10 && !isLightMode) {
+        handleGameOver();
         body.classList.add("light-mode");
     } else if (score === 20 && isLightMode) {
         body.classList.remove("light-mode");
