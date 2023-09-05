@@ -5,6 +5,7 @@ const controls = document.querySelectorAll(".controls i");
 const body = document.body;
 const lightModeButton = document.getElementById("light-mode-button");
 const icon = document.querySelector("#music");
+const splash = document.querySelector(".splash");
 
 let gameOver = false;
 let foodX, foodY;
@@ -13,6 +14,18 @@ let velocityX = 0, velocityY = 0;
 let snakeBody = [];
 let setIntervalId;
 let score = 0;
+
+document.addEventListener("DOMContentLoaded", (e) => {
+    if (document.cookie.indexOf("visited=true") === -1) {
+        setTimeout(() => {
+            splash.classList.add('display-none');
+            document.cookie = "visited=true; expires=Fri, 31 Dec 9999 23:59:59 GMT";
+        }, 2000);
+    } else {
+        splash.classList.add('display-none');
+    }
+});
+
 
 // "Block" access to the source code.
 document.addEventListener('contextmenu', function (event) {
@@ -46,7 +59,7 @@ var sfx = {
 var music = {
     background: new Howl({
         src: [
-            'src/Sounds/pixel03.mp3' // songs: "pixel01", "pixel02" and "pixel03"
+            'src/Sounds/02.mp3'
         ],
         autoplay: false,
         loop: true,
