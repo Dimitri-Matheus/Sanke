@@ -39,14 +39,14 @@ document.addEventListener('contextmenu', function (event) {
 var sfx = {
     eat: new Howl({
         src: [
-            'src/Sounds/eat.mp3',
+            'assets/sound/eat.mp3',
         ],
         loop: false,
         volume: 0.2,
     }),
     hit: new Howl({
         src: [
-            'src/Sounds/hit.mp3',
+            'assets/sound/hit.mp3',
         ],
         loop: false,
         volume: 0.2,
@@ -59,7 +59,7 @@ var sfx = {
 var music = {
     background: new Howl({
         src: [
-            'src/Sounds/02.mp3'
+            'assets/sound/01.mp3'
         ],
         autoplay: false,
         loop: true,
@@ -138,10 +138,10 @@ function updateScore(newScore) {
     
     // change the theme when reaching a certain amount of points
     if (score === 10 && isLightMode) {
-        handleGameOver();
+        handleGameOver(); // game over for the player.
         body.classList.remove("light-mode");
     } else if (score === 10 && !isLightMode) {
-        handleGameOver();
+        handleGameOver(); // game over for the player.
         body.classList.add("light-mode");
     } else if (score === 20 && isLightMode) {
         body.classList.remove("light-mode");
@@ -225,7 +225,7 @@ const initGame = () =>{
 
         // cell phone vibration
         /* if ("vibrate" in navigator) {
-            navigator.vibrate(200);
+            navigator.vibrate(100);
             console.log("Vibration!!!")
         } */
 
