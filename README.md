@@ -1,9 +1,9 @@
 <h1 align="center">Snake Game<h1>
 
-<div align="center"></div>
+<div align="center"><img src="https://github.com/Dimitri-Matheus/Snake/assets/121637762/dc94353c-1095-4b11-a2a0-896011627437"></div>
 
 
-###
+---
 
 # Resumo
 
