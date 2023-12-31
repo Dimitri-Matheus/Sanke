@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
 });
 
 
-// "Block" access to the source code.
+// "Block" access to the source code
 document.addEventListener('contextmenu', function (event) {
     alert(
         'This project is fully available on my GitHub profile. I would be very grateful if you could give it a star to show your support.'
@@ -138,10 +138,8 @@ function updateScore(newScore) {
     
     // change the theme when reaching a certain amount of points
     if (score === 10 && isLightMode) {
-        handleGameOver(); // game over for the player.
         body.classList.remove("light-mode");
     } else if (score === 10 && !isLightMode) {
-        handleGameOver(); // game over for the player.
         body.classList.add("light-mode");
     } else if (score === 20 && isLightMode) {
         body.classList.remove("light-mode");
