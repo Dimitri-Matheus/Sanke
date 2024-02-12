@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
 // "Block" access to the source code
 document.addEventListener('contextmenu', function (event) {
     alert(
-        'This project is fully available on my GitHub profile. I would be very grateful if you could give it a star to show your support.'
+        'This project is fully available on my GitHub profile. I would be very grateful if you could give it a star to show your support'
     )
     event.preventDefault();
 });
