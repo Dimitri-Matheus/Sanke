@@ -1,0 +1,14 @@
+:root {
+    --primary: #a4c6de;
+    --secondary: #91abbf;
+    --tertiary: #5e8ca5;
+    --text: #010104;
+    --background: #e0d9d6;
+    --border-top: #c5c3c6;
+    --box-shadow: rgba(32, 32, 32, 0.2);
+    --box-shadow-food: #fafafa;
+    --background-food: #fafafa;
+    --box-shadow-player: rgba(32, 32, 32, 0.3);
+    --background-player: #3c6064;
+    transition: 0.5s;
+}

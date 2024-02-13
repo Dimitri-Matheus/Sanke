@@ -1,0 +1,15 @@
+:root {
+    --primary: #fff;
+    --secondary: #fff;
+    --tertiary: #fff;
+    --text: #fff;
+    --background: #fff;
+    --border-top: #fff;
+    --box-shadow: #fff;
+    --box-shadow-food: #fff;
+    --background-food: #fff;
+    --box-shadow-player: #fff;
+    --background-player: #fff;
+    transition: 0.5s;
+}
+  

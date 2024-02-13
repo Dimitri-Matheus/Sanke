@@ -3,7 +3,6 @@ const scoreElement = document.querySelector(".score");
 const highScoreElement = document.querySelector(".high-score");
 const controls = document.querySelectorAll(".controls i");
 const body = document.body;
-const lightModeButton = document.getElementById("light-mode-button");
 const icon = document.querySelector("#music");
 const splash = document.querySelector(".splash");
 
@@ -103,53 +102,41 @@ function changeIcon(icon, isPlaying) {
     }
 }
 
-// Light mode
+// Themes
 
-function toggleLightMode() {
-    body.classList.toggle("light-mode");
-  
-    const isLightMode = body.classList.contains("light-mode");
-    localStorage.setItem("lightMode", isLightMode);
-}
+document.addEventListener('DOMContentLoaded', function () {
+    const themeStylesheetLink = document.getElementById("themeStylesheetLink");
+    let currentTheme = localStorage.getItem("theme") || "light";
 
-lightModeButton.addEventListener("click", toggleLightMode);
+    function initThemeToggler() {
+        const themeToggler = document.getElementById("themeToggler");
 
-// Check and set mode on page load
+        function toggleTheme() {
+            if (currentTheme === "light") {
+                currentTheme = "dark";
+            } else if (currentTheme === "dark") {
+                currentTheme = "winter";
+            } else {
+                currentTheme = "light";
+            }
 
-document.addEventListener("DOMContentLoaded", () => {
-    const isLightMode = localStorage.getItem("lightMode") === "true";
-    
-    if (isLightMode) {
-      body.classList.add("light-mode");
-    } else {
-      body.classList.remove("light-mode");
+            applyTheme(currentTheme);
+        }
+
+        function applyTheme(themeName) {
+            themeStylesheetLink.setAttribute("href", `css/themes/${themeName}.css`);
+            localStorage.setItem("theme", themeName);
+        }
+
+        themeToggler.addEventListener("click", toggleTheme);
     }
+    initThemeToggler();
 });
 
 // High Score
 
 let highScore = localStorage.getItem("high-score") || 0;
 highScoreElement.innerText = `High Score: ${highScore}`;
-
-// Dynamic themes
-function updateScore(newScore) {
-    score = newScore;
-    const isLightMode = body.classList.contains("light-mode");
-    
-    // change the theme when reaching a certain amount of points
-    if (score === 10 && isLightMode) {
-        body.classList.remove("light-mode");
-    } else if (score === 10 && !isLightMode) {
-        body.classList.add("light-mode");
-    } else if (score === 20 && isLightMode) {
-        body.classList.remove("light-mode");
-    } else if (score == 20 && !isLightMode) {
-        body.classList.add("light-mode");
-    }
-}  
-  
-
-
 
 // Random 1 and 30 as food position
 
