@@ -103,32 +103,32 @@ function changeIcon(icon, isPlaying) {
 }
 
 // Themes
-
 document.addEventListener('DOMContentLoaded', function () {
-    const themeStylesheetLink = document.getElementById("themeStylesheetLink");
-    let currentTheme = localStorage.getItem("theme") || "light";
-
     function initThemeToggler() {
         const themeToggler = document.getElementById("themeToggler");
+        const themeStylesheetLink = document.getElementById("themeStylesheetLink");
+        let currentTheme = localStorage.getItem("theme") || "light";
 
         function toggleTheme() {
             if (currentTheme === "light") {
                 currentTheme = "dark";
             } else if (currentTheme === "dark") {
-                currentTheme = "winter";
+                currentTheme = "winter"
             } else {
                 currentTheme = "light";
             }
 
-            applyTheme(currentTheme);
-        }
-
-        function applyTheme(themeName) {
-            themeStylesheetLink.setAttribute("href", `css/themes/${themeName}.css`);
-            localStorage.setItem("theme", themeName);
+            themeStylesheetLink.setAttribute("href", `css/themes/${currentTheme}.css`);
+            localStorage.setItem("theme", currentTheme);
         }
 
         themeToggler.addEventListener("click", toggleTheme);
+        activateTheme(currentTheme);
+    }
+
+    function activateTheme(themeName) {
+        const themeStylesheetLink = document.getElementById("themeStylesheetLink");
+        themeStylesheetLink.setAttribute("href", `css/themes/${themeName}.css`);
     }
     initThemeToggler();
 });
@@ -213,8 +213,6 @@ const initGame = () =>{
             navigator.vibrate(100);
             console.log("Vibration!!!")
         } */
-
-        updateScore(score);
 
     }
 

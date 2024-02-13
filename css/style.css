@@ -89,6 +89,11 @@ body {
     box-shadow: 0 0 20px var(--box-shadow-food);
 }
 
+.play-board .upgrade {
+    background: blue;
+    box-shadow: 0 0 20px var(--box-shadow-food);
+}
+
 .play-board .food.wiggle {
     animation: wiggle 3s linear infinite;
     transition-delay: 1s;
