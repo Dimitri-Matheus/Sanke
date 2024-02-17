@@ -34,9 +34,10 @@ body {
     color: var(--text);
     text-align: center;
     line-height: 90vh;
+    user-select: none;
 }
 
-.splash.display-none {
+.splash.none {
     position: fixed;
     opacity: 0;
     top: 0;
@@ -55,6 +56,21 @@ body {
     animation: fadeIn 1s ease-in forwards;
 }
 
+#start {
+    color: var(--text);
+    position: fixed;
+    cursor: pointer;
+    border: none;
+    background: none;
+    font-size: 1.3rem;
+    animation: wiggle 2s forwards infinite;
+}
+
+#start.none {
+    display: none;
+    transition: all 0.3s ease-out;
+}
+
 .wrapper {
     width: 65vmin;
     height: 70vmin;
@@ -68,11 +84,11 @@ body {
 }
 
 .game-details {
+    display: flex;
     color: var(--text);
     font-weight: 500;
     font-size: 1.2rem;
     padding: 20px 27px;
-    display: flex;
     justify-content: space-between;
 }
 
@@ -80,6 +96,7 @@ body {
     height: 100%;
     height: 100%;
     display: grid;
+    border-radius: 0 0 5px 5px;
     background: var(--secondary);
     grid-template: repeat(30, 1fr) / repeat(30, 1fr);
 }
@@ -90,7 +107,7 @@ body {
 }
 
 .play-board .upgrade {
-    background: blue;
+    background: var(--background-food);
     box-shadow: 0 0 20px var(--box-shadow-food);
 }
 
@@ -181,8 +198,8 @@ body {
     right: 50px;
     top: 50px;
     cursor: pointer;
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
     z-index: 2;
     border-radius: 50%;
     transition: 0.5s;
@@ -199,8 +216,8 @@ body {
     justify-content: center;
     top: 80px;
     right: 50px;
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
     z-index: 2;
     transition: 0.5s;
     animation: FadeIn 0.3s ease;
@@ -232,6 +249,31 @@ body {
     animation: fadeIn 0.3s ease;
 }
 
+dialog {
+    align-items: center;
+    margin: 150px auto;
+    margin-top: 620px;
+    padding: 5px;
+    background-color: var(--primary);
+    color: var(--primary);
+    box-shadow: var(--box-shadow);
+    outline: none;
+    border-radius: 5px;
+    animation: fadeIn 1s forwards ease-in;
+}
+
+dialog::backdrop {
+    background: none;
+}
+
+#message {
+    color: var(--text);
+    font-weight: 500;
+    font-size: 1rem;
+    font-family: 'Open-sans', sans-serif;
+    animation: fadeIn 1s forwards ease-in-out;
+}
+
 @keyframes fadeIn {
     from {
     opacity: 0;
@@ -240,7 +282,16 @@ body {
     opacity: 1;
     }
 }
-  
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
 #replay {
     background: #69d300;
     color: #fefefe;
@@ -314,5 +365,9 @@ a:hover {
 
     .splash {
         font-size: 2.5rem;
+    }
+
+    dialog {
+        margin: 30px auto;
     }
 }

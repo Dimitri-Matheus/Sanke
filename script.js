@@ -5,9 +5,13 @@ const controls = document.querySelectorAll(".controls i");
 const body = document.body;
 const icon = document.querySelector("#music");
 const splash = document.querySelector(".splash");
+const start = document.getElementById("start");
+const popup = document.querySelector("dialog");
+const popupElement = document.getElementById("message");
 
 let gameOver = false;
 let foodX, foodY;
+let upgradeX, upgradeY, upgradeActive = false;
 let snakeX = 5, snakeY = 5;
 let velocityX = 0, velocityY = 0;
 let snakeBody = [];
@@ -16,12 +20,14 @@ let score = 0;
 
 document.addEventListener("DOMContentLoaded", (e) => {
     if (document.cookie.indexOf("visited=true") === -1) {
-        setTimeout(() => {
-            splash.classList.add('display-none');
+        start.addEventListener("click", () => {
+            splash.classList.add('none');
+            start.classList.add('none');
             document.cookie = "visited=true; expires=Fri, 31 Dec 9999 23:59:59 GMT";
-        }, 2000);
+        });
     } else {
-        splash.classList.add('display-none');
+        splash.remove();
+        start.remove();
     }
 });
 
@@ -49,22 +55,29 @@ var sfx = {
         ],
         loop: false,
         volume: 0.2,
+    }),
+    upgrade: new Howl({
+        src: [
+            'assets/sound/upgrade.wav',
+        ],
+        loop: false,
+        volume: 0.2,
         onend: function() {
             console.log("playing sfx!")
         }
-    })
+    }),
 }
 
 var music = {
     background: new Howl({
         src: [
-            'assets/sound/01.mp3'
+            'assets/sound/02.mp3'
         ],
         autoplay: false,
         loop: true,
         volume: 0.4,
         rate: 1.0, // speed
-    })
+    }),
 }
 
 // Music button and icons
@@ -103,6 +116,7 @@ function changeIcon(icon, isPlaying) {
 }
 
 // Themes
+
 document.addEventListener('DOMContentLoaded', function () {
     function initThemeToggler() {
         const themeToggler = document.getElementById("themeToggler");
@@ -113,7 +127,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if (currentTheme === "light") {
                 currentTheme = "dark";
             } else if (currentTheme === "dark") {
-                currentTheme = "winter"
+                currentTheme = "winter";
             } else {
                 currentTheme = "light";
             }
@@ -145,10 +159,72 @@ const updateFoodPosition = () =>{
     foodY = Math.floor(Math.random() * 30) + 1;
 }
 
+// Random upgrade position
+
+const updateUpgradePosition = () => {
+    upgradeX = Math.floor(Math.random() * 30) + 1;
+    upgradeY = Math.floor(Math.random() * 30) + 1;
+}
+
+// Logic upgrades
+
+const DoubleSpeedEffect = () => {
+    velocityX *= 2;
+    velocityY *= 2;
+    popupElement.innerText = "Velocity doubled!";
+    popup.showModal();
+};
+
+const TeleportEffect = () => {
+    snakeX = Math.floor(Math.random() * 30) + 1;
+    snakeY = Math.floor(Math.random() * 30) + 1;
+    popupElement.innerHTML = "Teleported!";
+    popup.showModal();
+};
+
+const MoreFoodEffect = () => {
+    score+=2;
+    localStorage.setItem("high-score", highScore);
+    scoreElement.innerText = `Score: ${score}`;
+    highScoreElement.innerText = `High Score: ${highScore}`;
+
+    popupElement.innerHTML = "Double points!";
+    popup.showModal();
+};
+
+const checkUpgradeCollision = () => {
+    if (snakeX === upgradeX && snakeY === upgradeY) {
+        sfx.upgrade.play();
+        updateFoodPosition();
+        updateUpgradePosition();
+
+        // Upgradeable random
+        const randomEffect = Math.floor(Math.random() * 3);
+
+        switch (randomEffect) {
+            case 0:
+                DoubleSpeedEffect();
+                break;
+            case 1:
+                TeleportEffect();
+                break;
+            case 2:
+                MoreFoodEffect();
+                break;
+        }
+        setTimeout(() => {
+            popup.classList.remove("message-out");
+            popup.close();
+        }, 2200)
+    }
+}
+
+
 // Game Over
 
 const handleGameOver = () => {
     sfx.hit.play();
+    popup.close();
     music.background.stop();
     clearInterval(setIntervalId);
     const modal = document.getElementById("gameOverModal");
@@ -196,10 +272,15 @@ const initGame = () =>{
     if (gameOver) return handleGameOver();
     let html = `<div class="food" style="grid-area: ${foodY} / ${foodX}"></div>`;
 
+    checkUpgradeCollision();
+
+    html += `<div class="upgrade" style="grid-area: ${upgradeY} / ${upgradeX}"></div>`;
+
     // Snake eat food
     if (snakeX === foodX && snakeY === foodY){
         sfx.eat.play();
         updateFoodPosition();
+        updateUpgradePosition();
         snakeBody.push([foodY, foodX]); // add food to snake body
         score++;
         highScore = score >= highScore ? score : highScore;
@@ -213,7 +294,6 @@ const initGame = () =>{
             navigator.vibrate(100);
             console.log("Vibration!!!")
         } */
-
     }
 
     // Update Snake Head
@@ -246,7 +326,7 @@ const initGame = () =>{
     
     playBoard.innerHTML = html;
 }
-
+updateUpgradePosition();
 updateFoodPosition();
 setIntervalId = setInterval(initGame, 100);
 document.addEventListener("keyup", changeDirection);
